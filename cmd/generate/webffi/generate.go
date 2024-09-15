@@ -19,19 +19,105 @@ import (
 )
 
 var (
+	WebRelDir = "../internal/webffi"
+)
+var (
+
+	//go:embed ffi_wrapper.go.tmpl
+	ffiWrapperGoFileText string
+
+	//go:embed ffi.go.tmpl
+	ffiFileText string
+
 	//go:embed manager_wrapper.go.tmpl
 	wrapManagerGoFileText string
 )
-var (
-	WebRelDir = "../internal/webffi"
-)
 
 func Generate(projectPath string, ast clang.CHeaderFileAST) {
-	err := GenerateManagerWrapperGoFile(projectPath, ast)
+	err := GenerateGDExtensionWrapperGoFile(projectPath, ast)
+	if err != nil {
+		panic(err)
+	}
+	err = GenerateGDExtensionInterfaceGoFile(projectPath, ast)
+	if err != nil {
+		panic(err)
+	}
+	err = GenerateManagerWrapperGoFile(projectPath, ast)
 	if err != nil {
 		panic(err)
 	}
 
+}
+
+func GenerateGDExtensionWrapperGoFile(projectPath string, ast clang.CHeaderFileAST) error {
+	funcs := template.FuncMap{
+		"gdiVariableName":    GdiVariableName,
+		"snakeCase":          strcase.ToSnake,
+		"camelCase":          strcase.ToCamel,
+		"goReturnType":       GoReturnType,
+		"goArgumentType":     GoArgumentType,
+		"goEnumValue":        GoEnumValue,
+		"add":                Add,
+		"cgoCastArgument":    CgoCastArgument,
+		"cgoCastReturnType":  CgoCastReturnType,
+		"cgoCleanUpArgument": CgoCleanUpArgument,
+		"trimPrefix":         TrimPrefix,
+	}
+
+	tmpl, err := template.New("ffi_wrapper.gen.go").
+		Funcs(funcs).
+		Parse(ffiWrapperGoFileText)
+	if err != nil {
+		return err
+	}
+
+	var b bytes.Buffer
+	err = tmpl.Execute(&b, ast)
+	if err != nil {
+		return err
+	}
+
+	headerFileName := filepath.Join(projectPath, WebRelDir, "ffi_wrapper.gen.go")
+	f, err := os.Create(headerFileName)
+	f.Write(b.Bytes())
+	f.Close()
+	return err
+}
+
+func GenerateGDExtensionInterfaceGoFile(projectPath string, ast clang.CHeaderFileAST) error {
+	funcs := template.FuncMap{
+		"gdiVariableName":     GdiVariableName,
+		"snakeCase":           strcase.ToSnake,
+		"camelCase":           strcase.ToCamel,
+		"goReturnType":        GoReturnType,
+		"goArgumentType":      GoArgumentType,
+		"goEnumValue":         GoEnumValue,
+		"add":                 Add,
+		"cgoCastArgument":     CgoCastArgument,
+		"cgoCastReturnType":   CgoCastReturnType,
+		"cgoCleanUpArgument":  CgoCleanUpArgument,
+		"trimPrefix":          TrimPrefix,
+		"loadProcAddressName": LoadProcAddressName,
+	}
+
+	tmpl, err := template.New("ffi.gen.go").
+		Funcs(funcs).
+		Parse(ffiFileText)
+	if err != nil {
+		return err
+	}
+
+	var b bytes.Buffer
+	err = tmpl.Execute(&b, ast)
+	if err != nil {
+		return err
+	}
+
+	headerFileName := filepath.Join(projectPath, WebRelDir, "ffi.gen.go")
+	f, err := os.Create(headerFileName)
+	f.Write(b.Bytes())
+	f.Close()
+	return err
 }
 
 func GenerateManagerWrapperGoFile(projectPath string, ast clang.CHeaderFileAST) error {
@@ -66,7 +152,7 @@ func GenerateManagerWrapperGoFile(projectPath string, ast clang.CHeaderFileAST) 
 		return err
 	}
 
-	headerFileName := filepath.Join(projectPath, WebRelDir, "../wrap/web_manager_wrapper.gen.go")
+	headerFileName := filepath.Join(projectPath, WebRelDir, "../wrap/manager_wrapper_web.gen.go")
 	f, err := os.Create(headerFileName)
 	f.Write(b.Bytes())
 	f.Close()
@@ -111,23 +197,12 @@ func getManagerFuncBody(function *clang.TypedefFunction) string {
 		sb.WriteString(prefixTab)
 		typeName := arg.Type.Primative.Name
 		argName := "arg" + strconv.Itoa(i)
-		switch typeName {
-		case "GdString":
-			sb.WriteString(argName + "Str := ")
-			sb.WriteString("NewCString(")
-			sb.WriteString(arg.Name)
-			sb.WriteString(")")
-			sb.WriteString("\n" + prefixTab)
-			sb.WriteString(argName + " := " + argName + "Str.ToGdString() \n")
-			sb.WriteString("\tdefer " + argName + "Str.Destroy() ")
+		sb.WriteString(argName + " := ")
+		sb.WriteString("To" + typeName)
+		sb.WriteString("(")
+		sb.WriteString(arg.Name)
+		sb.WriteString(")")
 
-		default:
-			sb.WriteString(argName + " := ")
-			sb.WriteString("To" + typeName)
-			sb.WriteString("(")
-			sb.WriteString(arg.Name)
-			sb.WriteString(")")
-		}
 		sb.WriteString("\n")
 		params = append(params, argName)
 	}
@@ -138,9 +213,9 @@ func getManagerFuncBody(function *clang.TypedefFunction) string {
 		sb.WriteString("retValue := ")
 	}
 
-	funcName := "Call" + TrimPrefix(function.Name, "GDExtensionSpx")
+	funcName := "API.Spx" + (TrimPrefix(function.Name, "GDExtensionSpx"))
 	sb.WriteString(funcName)
-	sb.WriteString("(")
+	sb.WriteString(".Invoke(")
 	for i, param := range params {
 		sb.WriteString(param)
 		if i != len(params)-1 {

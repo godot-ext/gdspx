@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"godot-ext/gdspx/internal/ffi"
 	. "godot-ext/gdspx/internal/wrap"
 	. "godot-ext/gdspx/pkg/engine"
 )
@@ -14,7 +13,7 @@ var (
 )
 
 func Link(engineCallback EngineCallbackInfo) []IManager {
-	ok := ffi.Link()
+	ok := LinkFFI()
 	if !ok {
 		panic("godot bind symbol failed!")
 	}

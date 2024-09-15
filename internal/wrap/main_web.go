@@ -1,9 +1,7 @@
-//go:build platform_pc
-
 package wrap
 
 import (
-	"godot-ext/gdspx/internal/ffi"
+	"godot-ext/gdspx/internal/webffi"
 	. "godot-ext/gdspx/pkg/engine"
 )
 
@@ -23,7 +21,7 @@ func addManager[T IManager](mgr T) T {
 	return mgr
 }
 func LinkFFI() bool {
-	return ffi.Link()
+	return webffi.Link()
 }
 
 func CreateMgrs() []IManager {
@@ -31,5 +29,5 @@ func CreateMgrs() []IManager {
 }
 
 func RegisterCallbacks(callbacks CallbackInfo) {
-	ffi.BindCallback(callbacks)
+	webffi.BindCallback(callbacks)
 }
