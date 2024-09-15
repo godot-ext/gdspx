@@ -31,7 +31,11 @@ goenv:
 
 build: 
 	CGO_ENABLED=1 \
-	go build -buildmode=c-shared -o "$(TEST_BINARY_PATH)" $(TEST_MAIN)
+	go build -tags platform_pc -buildmode=c-shared -o "$(TEST_BINARY_PATH)" $(TEST_MAIN)
+	
+build_web: 
+	CGO_ENABLED=1 \
+	go build -tags platform_web -buildmode=c-shared -o "$(TEST_BINARY_PATH)" $(TEST_MAIN)
 
 buildfast: goenv
 	go build .
