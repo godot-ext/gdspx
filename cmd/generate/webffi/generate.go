@@ -23,8 +23,8 @@ var (
 )
 var (
 
-	//go:embed ffi_wrapper.go.tmpl
-	ffiWrapperGoFileText string
+	//go:embed callback.go.tmpl
+	callbacksFileText string
 
 	//go:embed ffi.go.tmpl
 	ffiFileText string
@@ -64,9 +64,9 @@ func GenerateGDExtensionWrapperGoFile(projectPath string, ast clang.CHeaderFileA
 		"trimPrefix":         TrimPrefix,
 	}
 
-	tmpl, err := template.New("ffi_wrapper.gen.go").
+	tmpl, err := template.New("callbacks.gen.go").
 		Funcs(funcs).
-		Parse(ffiWrapperGoFileText)
+		Parse(callbacksFileText)
 	if err != nil {
 		return err
 	}
@@ -77,7 +77,7 @@ func GenerateGDExtensionWrapperGoFile(projectPath string, ast clang.CHeaderFileA
 		return err
 	}
 
-	headerFileName := filepath.Join(projectPath, WebRelDir, "ffi_wrapper.gen.go")
+	headerFileName := filepath.Join(projectPath, WebRelDir, "callbacks.gen.go")
 	f, err := os.Create(headerFileName)
 	f.Write(b.Bytes())
 	f.Close()

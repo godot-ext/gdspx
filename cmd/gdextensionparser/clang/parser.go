@@ -81,6 +81,34 @@ func (a CHeaderFileAST) CollectGDExtensionInterfaceFunctions() []TypedefFunction
 	return fns
 }
 
+func (a CHeaderFileAST) CollectGDExtensionISpriteFunctions() []TypedefFunction {
+	allFns := a.CollectFunctions()
+
+	fns := make([]TypedefFunction, 0, len(allFns))
+
+	for _, fn := range allFns {
+		if strings.HasPrefix(fn.Name, "GDExtensionSpxSprite") &&
+			!slices.Contains(legacyGDExtentionInterfaceFunctionNames, fn.Name) {
+			fns = append(fns, fn)
+		}
+	}
+
+	return fns
+}
+func (a CHeaderFileAST) CollectGDExtensionICallbackFunctions() []TypedefFunction {
+	allFns := a.CollectFunctions()
+
+	fns := make([]TypedefFunction, 0, len(allFns))
+
+	for _, fn := range allFns {
+		if strings.HasPrefix(fn.Name, "GDExtensionSpxCallback") &&
+			!slices.Contains(legacyGDExtentionInterfaceFunctionNames, fn.Name) {
+			fns = append(fns, fn)
+		}
+	}
+	return fns
+}
+
 func (a CHeaderFileAST) CollectNonGDExtensionInterfaceFunctions() []TypedefFunction {
 	allFns := a.CollectFunctions()
 
