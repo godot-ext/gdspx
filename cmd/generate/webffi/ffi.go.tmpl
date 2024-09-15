@@ -28,6 +28,6 @@ type GDExtensionInterface struct {
 func (x *GDExtensionInterface) loadProcAddresses() {
 	{{ range $i, $f := $view.CollectGDExtensionInterfaceFunctions -}}
 	{{ if eq $f.Name "GDExtensionInterfaceGetProcAddress" -}}{{ continue }}{{ end -}}
-	x.{{ trimPrefix $f.Name "GDExtension" }} = dlsymGD("{{ loadProcAddressName $f.Name }}")
+	x.{{ trimPrefix $f.Name "GDExtension" }} = dlsymGD("gd{{ loadProcAddressName $f.Name }}")
 	{{ end -}}
 }

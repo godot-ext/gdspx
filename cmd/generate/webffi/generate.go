@@ -31,10 +31,16 @@ var (
 
 	//go:embed manager_wrapper.go.tmpl
 	wrapManagerGoFileText string
+
+	//go:embed godot_js_spx.cpp.tmpl
+	jsSpxCppFileText string
+
+	//go:embed gdspx.js.tmpl
+	jsEngineJsFileText string
 )
 
 func Generate(projectPath string, ast clang.CHeaderFileAST) {
-	err := GenerateGDExtensionWrapperGoFile(projectPath, ast)
+	err := GenerateCallbackGoFile(projectPath, ast)
 	if err != nil {
 		panic(err)
 	}
@@ -46,10 +52,18 @@ func Generate(projectPath string, ast clang.CHeaderFileAST) {
 	if err != nil {
 		panic(err)
 	}
+	err = GenerateJsSpxCppFile(projectPath, ast)
+	if err != nil {
+		panic(err)
+	}
+	err = GenerateJsEngineJsFile(projectPath, ast)
+	if err != nil {
+		panic(err)
+	}
 
 }
 
-func GenerateGDExtensionWrapperGoFile(projectPath string, ast clang.CHeaderFileAST) error {
+func GenerateCallbackGoFile(projectPath string, ast clang.CHeaderFileAST) error {
 	funcs := template.FuncMap{
 		"gdiVariableName":    GdiVariableName,
 		"snakeCase":          strcase.ToSnake,
@@ -153,6 +167,77 @@ func GenerateManagerWrapperGoFile(projectPath string, ast clang.CHeaderFileAST) 
 	}
 
 	headerFileName := filepath.Join(projectPath, WebRelDir, "../wrap/manager_wrapper_web.gen.go")
+	f, err := os.Create(headerFileName)
+	f.Write(b.Bytes())
+	f.Close()
+	return err
+}
+
+func GenerateJsSpxCppFile(projectPath string, ast clang.CHeaderFileAST) error {
+	funcs := template.FuncMap{
+		"gdiVariableName":    GdiVariableName,
+		"snakeCase":          strcase.ToSnake,
+		"camelCase":          strcase.ToCamel,
+		"goReturnType":       GoReturnType,
+		"goArgumentType":     GoArgumentType,
+		"goEnumValue":        GoEnumValue,
+		"add":                Add,
+		"cgoCastArgument":    CgoCastArgument,
+		"cgoCastReturnType":  CgoCastReturnType,
+		"cgoCleanUpArgument": CgoCleanUpArgument,
+		"trimPrefix":         TrimPrefix,
+	}
+
+	tmpl, err := template.New("godot_js_spx.gen.go").
+		Funcs(funcs).
+		Parse(jsSpxCppFileText)
+	if err != nil {
+		return err
+	}
+
+	var b bytes.Buffer
+	err = tmpl.Execute(&b, ast)
+	if err != nil {
+		return err
+	}
+
+	headerFileName := filepath.Join(projectPath, WebRelDir, "godot_js_spx.cpp")
+	f, err := os.Create(headerFileName)
+	f.Write(b.Bytes())
+	f.Close()
+	return err
+}
+
+func GenerateJsEngineJsFile(projectPath string, ast clang.CHeaderFileAST) error {
+	funcs := template.FuncMap{
+		"gdiVariableName":    GdiVariableName,
+		"snakeCase":          strcase.ToSnake,
+		"camelCase":          strcase.ToCamel,
+		"goReturnType":       GoReturnType,
+		"goArgumentType":     GoArgumentType,
+		"goEnumValue":        GoEnumValue,
+		"add":                Add,
+		"sub":                Sub,
+		"cgoCastArgument":    CgoCastArgument,
+		"cgoCastReturnType":  CgoCastReturnType,
+		"cgoCleanUpArgument": CgoCleanUpArgument,
+		"trimPrefix":         TrimPrefix,
+	}
+
+	tmpl, err := template.New("gdspx.js").
+		Funcs(funcs).
+		Parse(jsEngineJsFileText)
+	if err != nil {
+		return err
+	}
+
+	var b bytes.Buffer
+	err = tmpl.Execute(&b, ast)
+	if err != nil {
+		return err
+	}
+
+	headerFileName := filepath.Join(filepath.Join(projectPath, "../../cgo-wasm/godot/platform/web/js/engine"), "gdspx.js")
 	f, err := os.Create(headerFileName)
 	f.Write(b.Bytes())
 	f.Close()

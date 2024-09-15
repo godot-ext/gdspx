@@ -295,6 +295,34 @@ func (a Argument) IsPinnable() bool {
 
 	return false
 }
+func (a Argument) CStylePtrString(i int) string {
+	if a.Type.Function != nil {
+		return a.Type.CStyleString()
+	}
+
+	name := a.ResolvedName(i)
+	typeName := a.Type.CStyleString()
+	if typeName != "GdFloat" && typeName != "GdBool" && typeName != "GdString" {
+		typeName = typeName + "*"
+	}
+	return fmt.Sprintf("%s %s", typeName, name)
+}
+func (a Argument) ResolvedPtrName(i int) string {
+	if a.Type.Function != nil && a.Type.Function.Name != "" {
+		return a.Type.Function.Name
+	}
+	retStr := ""
+	if a.Name != "" {
+		retStr = a.Name
+	} else {
+		retStr = fmt.Sprintf("arg_%d", i)
+	}
+	typeName := a.Type.CStyleString()
+	if typeName != "GdFloat" && typeName != "GdBool" && typeName != "GdString" {
+		retStr = "*" + retStr
+	}
+	return retStr
+}
 
 func (a Argument) CStyleString(i int) string {
 	if a.Type.Function != nil {
