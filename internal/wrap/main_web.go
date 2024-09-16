@@ -1,3 +1,5 @@
+//go:build platform_web
+
 package wrap
 
 import (

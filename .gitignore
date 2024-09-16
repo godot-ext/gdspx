@@ -7,3 +7,4 @@ go.work.sum
 cmd/_debug_parsed_ast.json
 internal/ffi/_temp_output*.h
 godot/
+/builds
