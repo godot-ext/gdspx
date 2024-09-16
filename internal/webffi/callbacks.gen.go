@@ -16,18 +16,22 @@ import (
 
 func onSpxCallbackOnEngineStart(this js.Value, args []js.Value) interface{} {
 	println("GDExtensionSpxCallbackOnEngineStart")
+	callbacks.OnEngineStart()
 	return nil
 }
 func onSpxCallbackOnEngineUpdate(this js.Value, args []js.Value) interface{} {
 	println("GDExtensionSpxCallbackOnEngineUpdate")
+	callbacks.OnEngineUpdate(0.016)
 	return nil
 }
 func onSpxCallbackOnEngineFixedUpdate(this js.Value, args []js.Value) interface{} {
 	println("GDExtensionSpxCallbackOnEngineFixedUpdate")
+	callbacks.OnEngineFixedUpdate(0.016)
 	return nil
 }
 func onSpxCallbackOnEngineDestroy(this js.Value, args []js.Value) interface{} {
 	println("GDExtensionSpxCallbackOnEngineDestroy")
+	callbacks.OnEngineDestroy()
 	return nil
 }
 func onSpxCallbackOnSceneSpriteInstantiated(this js.Value, args []js.Value) interface{} {

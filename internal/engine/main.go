@@ -12,7 +12,7 @@ var (
 	timer    = float32(0)
 )
 
-func Link(engineCallback EngineCallbackInfo) []IManager {
+func Link(engineCallback EngineCallbackInfo) {
 	ok := LinkFFI()
 	if !ok {
 		panic("godot bind symbol failed!")
@@ -23,7 +23,7 @@ func Link(engineCallback EngineCallbackInfo) []IManager {
 	RegisterCallbacks(infos)
 	BindMgr(mgrs)
 	InternalInitEngine()
-	return mgrs
+	OnLinked()
 }
 
 func onEngineStart() {

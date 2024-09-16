@@ -10,7 +10,14 @@ var (
 )
 
 func Link() bool {
+	js.Global().Set("goWasmInit", js.FuncOf(goWasmInit))
 	return true
+}
+
+func goWasmInit(this js.Value, args []js.Value) interface{} {
+	println("Go wasm init succ!")
+	resiterFuncPtr2Js()
+	return js.ValueOf(nil)
 }
 
 func BindCallback(info engine.CallbackInfo) {

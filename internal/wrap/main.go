@@ -25,6 +25,8 @@ func addManager[T IManager](mgr T) T {
 func LinkFFI() bool {
 	return ffi.Link()
 }
+func OnLinked() {
+}
 
 func CreateMgrs() []IManager {
 	return createMgrs()
