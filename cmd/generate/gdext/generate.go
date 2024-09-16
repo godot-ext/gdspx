@@ -83,7 +83,7 @@ func Generate(projectPath string, ast clang.CHeaderFileAST) {
 		panic(err)
 	}
 	outputFile = filepath.Join(projectPath, RelDir, "godot_js_spx.cpp")
-	fileCopy(outputFile, filepath.Join(filepath.Join(projectPath, "../../cgo-wasm/godot/platform/web"), "godot_js_spx.cpp"))
+	fileCopy(outputFile, filepath.Join(filepath.Join(projectPath, "../godot/platform/web"), "godot_js_spx.cpp"))
 	os.Remove(outputFile)
 }
 
