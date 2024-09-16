@@ -32,9 +32,6 @@ var (
 	//go:embed manager_wrapper.go.tmpl
 	wrapManagerGoFileText string
 
-	//go:embed godot_js_spx.cpp.tmpl
-	jsSpxCppFileText string
-
 	//go:embed gdspx.js.tmpl
 	jsEngineJsFileText string
 )
@@ -49,10 +46,6 @@ func Generate(projectPath string, ast clang.CHeaderFileAST) {
 		panic(err)
 	}
 	err = GenerateManagerWrapperGoFile(projectPath, ast)
-	if err != nil {
-		panic(err)
-	}
-	err = GenerateJsSpxCppFile(projectPath, ast)
 	if err != nil {
 		panic(err)
 	}
@@ -173,41 +166,6 @@ func GenerateManagerWrapperGoFile(projectPath string, ast clang.CHeaderFileAST) 
 	return err
 }
 
-func GenerateJsSpxCppFile(projectPath string, ast clang.CHeaderFileAST) error {
-	funcs := template.FuncMap{
-		"gdiVariableName":    GdiVariableName,
-		"snakeCase":          strcase.ToSnake,
-		"camelCase":          strcase.ToCamel,
-		"goReturnType":       GoReturnType,
-		"goArgumentType":     GoArgumentType,
-		"goEnumValue":        GoEnumValue,
-		"add":                Add,
-		"cgoCastArgument":    CgoCastArgument,
-		"cgoCastReturnType":  CgoCastReturnType,
-		"cgoCleanUpArgument": CgoCleanUpArgument,
-		"trimPrefix":         TrimPrefix,
-	}
-
-	tmpl, err := template.New("godot_js_spx.gen.go").
-		Funcs(funcs).
-		Parse(jsSpxCppFileText)
-	if err != nil {
-		return err
-	}
-
-	var b bytes.Buffer
-	err = tmpl.Execute(&b, ast)
-	if err != nil {
-		return err
-	}
-
-	headerFileName := filepath.Join(projectPath, WebRelDir, "godot_js_spx.cpp")
-	f, err := os.Create(headerFileName)
-	f.Write(b.Bytes())
-	f.Close()
-	return err
-}
-
 func GenerateJsEngineJsFile(projectPath string, ast clang.CHeaderFileAST) error {
 	funcs := template.FuncMap{
 		"gdiVariableName":    GdiVariableName,
@@ -221,6 +179,7 @@ func GenerateJsEngineJsFile(projectPath string, ast clang.CHeaderFileAST) error 
 		"cgoCastArgument":    CgoCastArgument,
 		"cgoCastReturnType":  CgoCastReturnType,
 		"cgoCleanUpArgument": CgoCleanUpArgument,
+		"getJsFuncBody":      getJsFuncBody,
 		"trimPrefix":         TrimPrefix,
 	}
 
@@ -295,7 +254,7 @@ func getManagerFuncBody(function *clang.TypedefFunction) string {
 	// call the function
 	sb.WriteString(prefixTab)
 	if function.ReturnType.Name != "void" {
-		sb.WriteString("retValue := ")
+		sb.WriteString("_retValue := ")
 	}
 
 	funcName := "API.Spx" + (TrimPrefix(function.Name, "GDExtensionSpx"))
@@ -313,7 +272,7 @@ func getManagerFuncBody(function *clang.TypedefFunction) string {
 		sb.WriteString("\n" + prefixTab)
 		sb.WriteString("return ")
 		typeName := GetFuncParamTypeString(function.ReturnType.Name)
-		sb.WriteString("To" + strcase.ToCamel(typeName) + "(retValue)")
+		sb.WriteString("To" + strcase.ToCamel(typeName) + "(_retValue)")
 	}
 	return sb.String()
 }
@@ -339,6 +298,66 @@ func getManagerInterface(function *clang.TypedefFunction) string {
 	if function.ReturnType.Name != "void" {
 		typeName := GetFuncParamTypeString(function.ReturnType.Name)
 		sb.WriteString(" " + typeName + " ")
+	}
+	return sb.String()
+}
+func getJsFuncBody(function *clang.TypedefFunction) string {
+	sb := strings.Builder{}
+	prefixTab := "\t"
+	params := []string{}
+
+	// call the function
+	if function.ReturnType.Name != "void" {
+		sb.WriteString("_retValue = Alloc" + function.ReturnType.Name + "();")
+	}
+	sb.WriteString("\n")
+
+	// convert arguments
+	for i, arg := range function.Arguments {
+		sb.WriteString(prefixTab)
+		typeName := arg.Type.Primative.Name
+		argName := "_arg" + strconv.Itoa(i)
+		sb.WriteString(argName + " = ")
+		sb.WriteString("To" + typeName)
+		sb.WriteString("(")
+		sb.WriteString(arg.Name)
+		sb.WriteString(");")
+
+		sb.WriteString("\n")
+		params = append(params, argName)
+	}
+	sb.WriteString(prefixTab)
+	sb.WriteString("_gdFuncPtr")
+	sb.WriteString("(")
+	for i, param := range params {
+		sb.WriteString(param)
+		if i != len(params)-1 {
+			sb.WriteString(", ")
+		}
+	}
+	if function.ReturnType.Name != "void" {
+		if len(params) > 0 {
+			sb.WriteString(", ")
+		}
+		sb.WriteString("_retValue")
+	}
+	sb.WriteString(");")
+
+	sb.WriteString("\n")
+	// convert arguments
+	for i, arg := range function.Arguments {
+		sb.WriteString(prefixTab)
+		typeName := arg.Type.Primative.Name
+		argName := "_arg" + strconv.Itoa(i)
+		sb.WriteString("Free" + typeName + "(" + argName + "); \n")
+	}
+
+	if function.ReturnType.Name != "void" {
+		sb.WriteString(prefixTab + "_finalRetValue = ")
+		typeName := GetFuncParamTypeString(function.ReturnType.Name)
+		sb.WriteString("ToJs" + strcase.ToCamel(typeName) + "(_retValue);\n")
+		sb.WriteString(prefixTab + "Free" + typeName + "(_retValue); \n")
+		sb.WriteString(prefixTab + "return _finalRetValue")
 	}
 	return sb.String()
 }

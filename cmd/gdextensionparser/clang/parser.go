@@ -302,9 +302,7 @@ func (a Argument) CStylePtrString(i int) string {
 
 	name := a.ResolvedName(i)
 	typeName := a.Type.CStyleString()
-	if typeName != "GdFloat" && typeName != "GdBool" && typeName != "GdString" {
-		typeName = typeName + "*"
-	}
+	typeName = typeName + "*"
 	return fmt.Sprintf("%s %s", typeName, name)
 }
 func (a Argument) ResolvedPtrName(i int) string {
@@ -317,10 +315,7 @@ func (a Argument) ResolvedPtrName(i int) string {
 	} else {
 		retStr = fmt.Sprintf("arg_%d", i)
 	}
-	typeName := a.Type.CStyleString()
-	if typeName != "GdFloat" && typeName != "GdBool" && typeName != "GdString" {
-		retStr = "*" + retStr
-	}
+	retStr = "*" + retStr
 	return retStr
 }
 

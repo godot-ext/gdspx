@@ -20,25 +20,7 @@ function gdspx_{{ snakeCase (trimPrefix $f.Name "GDExtensionSpx") }}(
 		{{- if ne $j (sub (len $f.Arguments) 1) -}}, {{- end -}}
 	{{ end -}}
 ) {
-	func =  GodotEngine.rtenv['_gdspx_{{ snakeCase (trimPrefix $f.Name "GDExtensionSpx") }}']; 
-	arg0 := (C.{{ $f.Name }})(api.{{ trimPrefix $f.Name "GDExtension" }})
-	{{ range $j, $arg := $f.Arguments -}}
-		arg{{ add $j 1 }}{{$arg.Type.Primative.Name}} = {{ cgoCastArgument $arg (print "inArg" (add $j 1)) }}
-	{{ end -}}
-
-	{{- if $rt -}} ret_val = {{ end }}
-	{{ snakeCase ($rt) }}
-	func(arg0,
-		{{- range $j, $arg := $f.Arguments -}}
-			arg{{ add $j 1 }}{{$arg.Type.Primative.Name}}
-			{{- if ne $j (sub (len $f.Arguments) 1) -}}, {{- end -}}
-		{{- end -}}
-		{{ if $rt }} &ret_val{{ end -}}
-	)
-
-	{{- if $rt }}
-	finalResult = From{{$rt}}(ret_val)
-	return finalResult
-	{{- end }}
+	_gdFuncPtr =  GodotEngine.rtenv['_gdspx_{{ snakeCase (trimPrefix $f.Name "GDExtensionSpx") }}']; 
+	{{ getJsFuncBody $f }}
 }
 {{- end -}}

@@ -91,12 +91,12 @@ func (pself *audioMgr) SetAudioVolume(volume float32) {
 	API.SpxAudioSetAudioVolume.Invoke(arg0)
 }
 func (pself *audioMgr) GetAudioVolume() float32 {
-	retValue := API.SpxAudioGetAudioVolume.Invoke()
-	return ToFloat32(retValue)
+	_retValue := API.SpxAudioGetAudioVolume.Invoke()
+	return ToFloat32(_retValue)
 }
 func (pself *audioMgr) IsMusicPlaying() bool {
-	retValue := API.SpxAudioIsMusicPlaying.Invoke()
-	return ToBool(retValue)
+	_retValue := API.SpxAudioIsMusicPlaying.Invoke()
+	return ToBool(_retValue)
 }
 func (pself *audioMgr) PlayMusic(path string) {
 	arg0 := ToGdString(path)
@@ -107,8 +107,8 @@ func (pself *audioMgr) SetMusicVolume(volume float32) {
 	API.SpxAudioSetMusicVolume.Invoke(arg0)
 }
 func (pself *audioMgr) GetMusicVolume() float32 {
-	retValue := API.SpxAudioGetMusicVolume.Invoke()
-	return ToFloat32(retValue)
+	_retValue := API.SpxAudioGetMusicVolume.Invoke()
+	return ToFloat32(_retValue)
 }
 func (pself *audioMgr) PauseMusic() {
 	API.SpxAudioPauseMusic.Invoke()
@@ -117,79 +117,79 @@ func (pself *audioMgr) ResumeMusic() {
 	API.SpxAudioResumeMusic.Invoke()
 }
 func (pself *audioMgr) GetMusicTimer() float32 {
-	retValue := API.SpxAudioGetMusicTimer.Invoke()
-	return ToFloat32(retValue)
+	_retValue := API.SpxAudioGetMusicTimer.Invoke()
+	return ToFloat32(_retValue)
 }
 func (pself *audioMgr) SetMusicTimer(time float32) {
 	arg0 := ToGdFloat(time)
 	API.SpxAudioSetMusicTimer.Invoke(arg0)
 }
 func (pself *cameraMgr) GetCameraPosition() Vec2 {
-	retValue := API.SpxCameraGetCameraPosition.Invoke()
-	return ToVec2(retValue)
+	_retValue := API.SpxCameraGetCameraPosition.Invoke()
+	return ToVec2(_retValue)
 }
 func (pself *cameraMgr) SetCameraPosition(position Vec2) {
 	arg0 := ToGdVec2(position)
 	API.SpxCameraSetCameraPosition.Invoke(arg0)
 }
 func (pself *cameraMgr) GetCameraZoom() Vec2 {
-	retValue := API.SpxCameraGetCameraZoom.Invoke()
-	return ToVec2(retValue)
+	_retValue := API.SpxCameraGetCameraZoom.Invoke()
+	return ToVec2(_retValue)
 }
 func (pself *cameraMgr) SetCameraZoom(size Vec2) {
 	arg0 := ToGdVec2(size)
 	API.SpxCameraSetCameraZoom.Invoke(arg0)
 }
 func (pself *cameraMgr) GetViewportRect() Rect2 {
-	retValue := API.SpxCameraGetViewportRect.Invoke()
-	return ToRect2(retValue)
+	_retValue := API.SpxCameraGetViewportRect.Invoke()
+	return ToRect2(_retValue)
 }
 func (pself *inputMgr) GetMousePos() Vec2 {
-	retValue := API.SpxInputGetMousePos.Invoke()
-	return ToVec2(retValue)
+	_retValue := API.SpxInputGetMousePos.Invoke()
+	return ToVec2(_retValue)
 }
 func (pself *inputMgr) GetKey(key int64) bool {
 	arg0 := ToGdInt(key)
-	retValue := API.SpxInputGetKey.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxInputGetKey.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *inputMgr) GetMouseState(mouse_id int64) bool {
 	arg0 := ToGdInt(mouse_id)
-	retValue := API.SpxInputGetMouseState.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxInputGetMouseState.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *inputMgr) GetKeyState(key int64) int64 {
 	arg0 := ToGdInt(key)
-	retValue := API.SpxInputGetKeyState.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxInputGetKeyState.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *inputMgr) GetAxis(neg_action string, pos_action string) float32 {
 	arg0 := ToGdString(neg_action)
 	arg1 := ToGdString(pos_action)
-	retValue := API.SpxInputGetAxis.Invoke(arg0, arg1)
-	return ToFloat32(retValue)
+	_retValue := API.SpxInputGetAxis.Invoke(arg0, arg1)
+	return ToFloat32(_retValue)
 }
 func (pself *inputMgr) IsActionPressed(action string) bool {
 	arg0 := ToGdString(action)
-	retValue := API.SpxInputIsActionPressed.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxInputIsActionPressed.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *inputMgr) IsActionJustPressed(action string) bool {
 	arg0 := ToGdString(action)
-	retValue := API.SpxInputIsActionJustPressed.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxInputIsActionJustPressed.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *inputMgr) IsActionJustReleased(action string) bool {
 	arg0 := ToGdString(action)
-	retValue := API.SpxInputIsActionJustReleased.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxInputIsActionJustReleased.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *physicMgr) Raycast(from Vec2, to Vec2, collision_mask int64) Object {
 	arg0 := ToGdVec2(from)
 	arg1 := ToGdVec2(to)
 	arg2 := ToGdInt(collision_mask)
-	retValue := API.SpxPhysicRaycast.Invoke(arg0, arg1, arg2)
-	return ToObject(retValue)
+	_retValue := API.SpxPhysicRaycast.Invoke(arg0, arg1, arg2)
+	return ToObject(_retValue)
 }
 func (pself *physicMgr) CheckCollision(from Vec2, to Vec2, collision_mask int64, collide_with_areas bool, collide_with_bodies bool) bool {
 	arg0 := ToGdVec2(from)
@@ -197,16 +197,16 @@ func (pself *physicMgr) CheckCollision(from Vec2, to Vec2, collision_mask int64,
 	arg2 := ToGdInt(collision_mask)
 	arg3 := ToGdBool(collide_with_areas)
 	arg4 := ToGdBool(collide_with_bodies)
-	retValue := API.SpxPhysicCheckCollision.Invoke(arg0, arg1, arg2, arg3, arg4)
-	return ToBool(retValue)
+	_retValue := API.SpxPhysicCheckCollision.Invoke(arg0, arg1, arg2, arg3, arg4)
+	return ToBool(_retValue)
 }
 func (pself *sceneMgr) ChangeSceneToFile(path string) {
 	arg0 := ToGdString(path)
 	API.SpxSceneChangeSceneToFile.Invoke(arg0)
 }
 func (pself *sceneMgr) ReloadCurrentScene() int64 {
-	retValue := API.SpxSceneReloadCurrentScene.Invoke()
-	return ToInt64(retValue)
+	_retValue := API.SpxSceneReloadCurrentScene.Invoke()
+	return ToInt64(_retValue)
 }
 func (pself *sceneMgr) UnloadCurrentScene() {
 	API.SpxSceneUnloadCurrentScene.Invoke()
@@ -234,8 +234,8 @@ func (pself *spriteMgr) SetChildPosition(obj Object, path string, pos Vec2) {
 func (pself *spriteMgr) GetChildPosition(obj Object, path string) Vec2 {
 	arg0 := ToGdObj(obj)
 	arg1 := ToGdString(path)
-	retValue := API.SpxSpriteGetChildPosition.Invoke(arg0, arg1)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetChildPosition.Invoke(arg0, arg1)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) SetChildRotation(obj Object, path string, rot float32) {
 	arg0 := ToGdObj(obj)
@@ -246,8 +246,8 @@ func (pself *spriteMgr) SetChildRotation(obj Object, path string, rot float32) {
 func (pself *spriteMgr) GetChildRotation(obj Object, path string) float32 {
 	arg0 := ToGdObj(obj)
 	arg1 := ToGdString(path)
-	retValue := API.SpxSpriteGetChildRotation.Invoke(arg0, arg1)
-	return ToFloat32(retValue)
+	_retValue := API.SpxSpriteGetChildRotation.Invoke(arg0, arg1)
+	return ToFloat32(_retValue)
 }
 func (pself *spriteMgr) SetChildScale(obj Object, path string, scale Vec2) {
 	arg0 := ToGdObj(obj)
@@ -258,28 +258,28 @@ func (pself *spriteMgr) SetChildScale(obj Object, path string, scale Vec2) {
 func (pself *spriteMgr) GetChildScale(obj Object, path string) Vec2 {
 	arg0 := ToGdObj(obj)
 	arg1 := ToGdString(path)
-	retValue := API.SpxSpriteGetChildScale.Invoke(arg0, arg1)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetChildScale.Invoke(arg0, arg1)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) CreateSprite(path string) Object {
 	arg0 := ToGdString(path)
-	retValue := API.SpxSpriteCreateSprite.Invoke(arg0)
-	return ToObject(retValue)
+	_retValue := API.SpxSpriteCreateSprite.Invoke(arg0)
+	return ToObject(_retValue)
 }
 func (pself *spriteMgr) CloneSprite(obj Object) Object {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteCloneSprite.Invoke(arg0)
-	return ToObject(retValue)
+	_retValue := API.SpxSpriteCloneSprite.Invoke(arg0)
+	return ToObject(_retValue)
 }
 func (pself *spriteMgr) DestroySprite(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteDestroySprite.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteDestroySprite.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) IsSpriteAlive(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsSpriteAlive.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsSpriteAlive.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) SetPosition(obj Object, pos Vec2) {
 	arg0 := ToGdObj(obj)
@@ -288,8 +288,8 @@ func (pself *spriteMgr) SetPosition(obj Object, pos Vec2) {
 }
 func (pself *spriteMgr) GetPosition(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetPosition.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetPosition.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) SetRotation(obj Object, rot float32) {
 	arg0 := ToGdObj(obj)
@@ -298,8 +298,8 @@ func (pself *spriteMgr) SetRotation(obj Object, rot float32) {
 }
 func (pself *spriteMgr) GetRotation(obj Object) float32 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetRotation.Invoke(arg0)
-	return ToFloat32(retValue)
+	_retValue := API.SpxSpriteGetRotation.Invoke(arg0)
+	return ToFloat32(_retValue)
 }
 func (pself *spriteMgr) SetScale(obj Object, scale Vec2) {
 	arg0 := ToGdObj(obj)
@@ -308,8 +308,8 @@ func (pself *spriteMgr) SetScale(obj Object, scale Vec2) {
 }
 func (pself *spriteMgr) GetScale(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetScale.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetScale.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) SetColor(obj Object, color Color) {
 	arg0 := ToGdObj(obj)
@@ -318,8 +318,8 @@ func (pself *spriteMgr) SetColor(obj Object, color Color) {
 }
 func (pself *spriteMgr) GetColor(obj Object) Color {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetColor.Invoke(arg0)
-	return ToColor(retValue)
+	_retValue := API.SpxSpriteGetColor.Invoke(arg0)
+	return ToColor(_retValue)
 }
 func (pself *spriteMgr) SetTexture(obj Object, path string) {
 	arg0 := ToGdObj(obj)
@@ -328,8 +328,8 @@ func (pself *spriteMgr) SetTexture(obj Object, path string) {
 }
 func (pself *spriteMgr) GetTexture(obj Object) string {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetTexture.Invoke(arg0)
-	return ToString(retValue)
+	_retValue := API.SpxSpriteGetTexture.Invoke(arg0)
+	return ToString(_retValue)
 }
 func (pself *spriteMgr) SetVisible(obj Object, visible bool) {
 	arg0 := ToGdObj(obj)
@@ -338,13 +338,13 @@ func (pself *spriteMgr) SetVisible(obj Object, visible bool) {
 }
 func (pself *spriteMgr) GetVisible(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetVisible.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteGetVisible.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) GetZIndex(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetZIndex.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxSpriteGetZIndex.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *spriteMgr) SetZIndex(obj Object, z int64) {
 	arg0 := ToGdObj(obj)
@@ -373,8 +373,8 @@ func (pself *spriteMgr) StopAnim(obj Object) {
 }
 func (pself *spriteMgr) IsPlayingAnim(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsPlayingAnim.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsPlayingAnim.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) SetAnim(obj Object, p_name string) {
 	arg0 := ToGdObj(obj)
@@ -383,8 +383,8 @@ func (pself *spriteMgr) SetAnim(obj Object, p_name string) {
 }
 func (pself *spriteMgr) GetAnim(obj Object) string {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetAnim.Invoke(arg0)
-	return ToString(retValue)
+	_retValue := API.SpxSpriteGetAnim.Invoke(arg0)
+	return ToString(_retValue)
 }
 func (pself *spriteMgr) SetAnimFrame(obj Object, p_frame int64) {
 	arg0 := ToGdObj(obj)
@@ -393,8 +393,8 @@ func (pself *spriteMgr) SetAnimFrame(obj Object, p_frame int64) {
 }
 func (pself *spriteMgr) GetAnimFrame(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetAnimFrame.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxSpriteGetAnimFrame.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *spriteMgr) SetAnimSpeedScale(obj Object, p_speed_scale float32) {
 	arg0 := ToGdObj(obj)
@@ -403,13 +403,13 @@ func (pself *spriteMgr) SetAnimSpeedScale(obj Object, p_speed_scale float32) {
 }
 func (pself *spriteMgr) GetAnimSpeedScale(obj Object) float32 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetAnimSpeedScale.Invoke(arg0)
-	return ToFloat32(retValue)
+	_retValue := API.SpxSpriteGetAnimSpeedScale.Invoke(arg0)
+	return ToFloat32(_retValue)
 }
 func (pself *spriteMgr) GetAnimPlayingSpeed(obj Object) float32 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetAnimPlayingSpeed.Invoke(arg0)
-	return ToFloat32(retValue)
+	_retValue := API.SpxSpriteGetAnimPlayingSpeed.Invoke(arg0)
+	return ToFloat32(_retValue)
 }
 func (pself *spriteMgr) SetAnimCentered(obj Object, p_center bool) {
 	arg0 := ToGdObj(obj)
@@ -418,8 +418,8 @@ func (pself *spriteMgr) SetAnimCentered(obj Object, p_center bool) {
 }
 func (pself *spriteMgr) IsAnimCentered(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsAnimCentered.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsAnimCentered.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) SetAnimOffset(obj Object, p_offset Vec2) {
 	arg0 := ToGdObj(obj)
@@ -428,8 +428,8 @@ func (pself *spriteMgr) SetAnimOffset(obj Object, p_offset Vec2) {
 }
 func (pself *spriteMgr) GetAnimOffset(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetAnimOffset.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetAnimOffset.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) SetAnimFlipH(obj Object, p_flip bool) {
 	arg0 := ToGdObj(obj)
@@ -438,8 +438,8 @@ func (pself *spriteMgr) SetAnimFlipH(obj Object, p_flip bool) {
 }
 func (pself *spriteMgr) IsAnimFlippedH(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsAnimFlippedH.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsAnimFlippedH.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) SetAnimFlipV(obj Object, p_flip bool) {
 	arg0 := ToGdObj(obj)
@@ -448,8 +448,8 @@ func (pself *spriteMgr) SetAnimFlipV(obj Object, p_flip bool) {
 }
 func (pself *spriteMgr) IsAnimFlippedV(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsAnimFlippedV.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsAnimFlippedV.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) SetVelocity(obj Object, velocity Vec2) {
 	arg0 := ToGdObj(obj)
@@ -458,63 +458,63 @@ func (pself *spriteMgr) SetVelocity(obj Object, velocity Vec2) {
 }
 func (pself *spriteMgr) GetVelocity(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetVelocity.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetVelocity.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) IsOnFloor(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsOnFloor.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsOnFloor.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) IsOnFloorOnly(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsOnFloorOnly.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsOnFloorOnly.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) IsOnWall(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsOnWall.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsOnWall.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) IsOnWallOnly(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsOnWallOnly.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsOnWallOnly.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) IsOnCeiling(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsOnCeiling.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsOnCeiling.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) IsOnCeilingOnly(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsOnCeilingOnly.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsOnCeilingOnly.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) GetLastMotion(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetLastMotion.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetLastMotion.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) GetPositionDelta(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetPositionDelta.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetPositionDelta.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) GetFloorNormal(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetFloorNormal.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetFloorNormal.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) GetWallNormal(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetWallNormal.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetWallNormal.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) GetRealVelocity(obj Object) Vec2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetRealVelocity.Invoke(arg0)
-	return ToVec2(retValue)
+	_retValue := API.SpxSpriteGetRealVelocity.Invoke(arg0)
+	return ToVec2(_retValue)
 }
 func (pself *spriteMgr) MoveAndSlide(obj Object) {
 	arg0 := ToGdObj(obj)
@@ -527,8 +527,8 @@ func (pself *spriteMgr) SetGravity(obj Object, gravity float32) {
 }
 func (pself *spriteMgr) GetGravity(obj Object) float32 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetGravity.Invoke(arg0)
-	return ToFloat32(retValue)
+	_retValue := API.SpxSpriteGetGravity.Invoke(arg0)
+	return ToFloat32(_retValue)
 }
 func (pself *spriteMgr) SetMass(obj Object, mass float32) {
 	arg0 := ToGdObj(obj)
@@ -537,8 +537,8 @@ func (pself *spriteMgr) SetMass(obj Object, mass float32) {
 }
 func (pself *spriteMgr) GetMass(obj Object) float32 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetMass.Invoke(arg0)
-	return ToFloat32(retValue)
+	_retValue := API.SpxSpriteGetMass.Invoke(arg0)
+	return ToFloat32(_retValue)
 }
 func (pself *spriteMgr) AddForce(obj Object, force Vec2) {
 	arg0 := ToGdObj(obj)
@@ -557,8 +557,8 @@ func (pself *spriteMgr) SetCollisionLayer(obj Object, layer int64) {
 }
 func (pself *spriteMgr) GetCollisionLayer(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetCollisionLayer.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxSpriteGetCollisionLayer.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *spriteMgr) SetCollisionMask(obj Object, mask int64) {
 	arg0 := ToGdObj(obj)
@@ -567,8 +567,8 @@ func (pself *spriteMgr) SetCollisionMask(obj Object, mask int64) {
 }
 func (pself *spriteMgr) GetCollisionMask(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetCollisionMask.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxSpriteGetCollisionMask.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *spriteMgr) SetTriggerLayer(obj Object, layer int64) {
 	arg0 := ToGdObj(obj)
@@ -577,8 +577,8 @@ func (pself *spriteMgr) SetTriggerLayer(obj Object, layer int64) {
 }
 func (pself *spriteMgr) GetTriggerLayer(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetTriggerLayer.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxSpriteGetTriggerLayer.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *spriteMgr) SetTriggerMask(obj Object, mask int64) {
 	arg0 := ToGdObj(obj)
@@ -587,8 +587,8 @@ func (pself *spriteMgr) SetTriggerMask(obj Object, mask int64) {
 }
 func (pself *spriteMgr) GetTriggerMask(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteGetTriggerMask.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxSpriteGetTriggerMask.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *spriteMgr) SetColliderRect(obj Object, center Vec2, size Vec2) {
 	arg0 := ToGdObj(obj)
@@ -615,8 +615,8 @@ func (pself *spriteMgr) SetCollisionEnabled(obj Object, enabled bool) {
 }
 func (pself *spriteMgr) IsCollisionEnabled(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsCollisionEnabled.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsCollisionEnabled.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *spriteMgr) SetTriggerRect(obj Object, center Vec2, size Vec2) {
 	arg0 := ToGdObj(obj)
@@ -643,58 +643,58 @@ func (pself *spriteMgr) SetTriggerEnabled(obj Object, trigger bool) {
 }
 func (pself *spriteMgr) IsTriggerEnabled(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxSpriteIsTriggerEnabled.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxSpriteIsTriggerEnabled.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *uiMgr) CreateNode(path string) Object {
 	arg0 := ToGdString(path)
-	retValue := API.SpxUiCreateNode.Invoke(arg0)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateNode.Invoke(arg0)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) CreateButton(path string, text string) Object {
 	arg0 := ToGdString(path)
 	arg1 := ToGdString(text)
-	retValue := API.SpxUiCreateButton.Invoke(arg0, arg1)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateButton.Invoke(arg0, arg1)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) CreateLabel(path string, text string) Object {
 	arg0 := ToGdString(path)
 	arg1 := ToGdString(text)
-	retValue := API.SpxUiCreateLabel.Invoke(arg0, arg1)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateLabel.Invoke(arg0, arg1)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) CreateImage(path string) Object {
 	arg0 := ToGdString(path)
-	retValue := API.SpxUiCreateImage.Invoke(arg0)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateImage.Invoke(arg0)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) CreateToggle(path string, value bool) Object {
 	arg0 := ToGdString(path)
 	arg1 := ToGdBool(value)
-	retValue := API.SpxUiCreateToggle.Invoke(arg0, arg1)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateToggle.Invoke(arg0, arg1)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) CreateSlider(path string, value float32) Object {
 	arg0 := ToGdString(path)
 	arg1 := ToGdFloat(value)
-	retValue := API.SpxUiCreateSlider.Invoke(arg0, arg1)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateSlider.Invoke(arg0, arg1)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) CreateInput(path string, text string) Object {
 	arg0 := ToGdString(path)
 	arg1 := ToGdString(text)
-	retValue := API.SpxUiCreateInput.Invoke(arg0, arg1)
-	return ToObject(retValue)
+	_retValue := API.SpxUiCreateInput.Invoke(arg0, arg1)
+	return ToObject(_retValue)
 }
 func (pself *uiMgr) DestroyNode(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiDestroyNode.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxUiDestroyNode.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *uiMgr) GetType(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetType.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxUiGetType.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *uiMgr) SetText(obj Object, text string) {
 	arg0 := ToGdObj(obj)
@@ -703,8 +703,8 @@ func (pself *uiMgr) SetText(obj Object, text string) {
 }
 func (pself *uiMgr) GetText(obj Object) string {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetText.Invoke(arg0)
-	return ToString(retValue)
+	_retValue := API.SpxUiGetText.Invoke(arg0)
+	return ToString(_retValue)
 }
 func (pself *uiMgr) SetTexture(obj Object, path string) {
 	arg0 := ToGdObj(obj)
@@ -713,8 +713,8 @@ func (pself *uiMgr) SetTexture(obj Object, path string) {
 }
 func (pself *uiMgr) GetTexture(obj Object) string {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetTexture.Invoke(arg0)
-	return ToString(retValue)
+	_retValue := API.SpxUiGetTexture.Invoke(arg0)
+	return ToString(_retValue)
 }
 func (pself *uiMgr) SetColor(obj Object, color Color) {
 	arg0 := ToGdObj(obj)
@@ -723,8 +723,8 @@ func (pself *uiMgr) SetColor(obj Object, color Color) {
 }
 func (pself *uiMgr) GetColor(obj Object) Color {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetColor.Invoke(arg0)
-	return ToColor(retValue)
+	_retValue := API.SpxUiGetColor.Invoke(arg0)
+	return ToColor(_retValue)
 }
 func (pself *uiMgr) SetFontSize(obj Object, size int64) {
 	arg0 := ToGdObj(obj)
@@ -733,8 +733,8 @@ func (pself *uiMgr) SetFontSize(obj Object, size int64) {
 }
 func (pself *uiMgr) GetFontSize(obj Object) int64 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetFontSize.Invoke(arg0)
-	return ToInt64(retValue)
+	_retValue := API.SpxUiGetFontSize.Invoke(arg0)
+	return ToInt64(_retValue)
 }
 func (pself *uiMgr) SetVisible(obj Object, visible bool) {
 	arg0 := ToGdObj(obj)
@@ -743,8 +743,8 @@ func (pself *uiMgr) SetVisible(obj Object, visible bool) {
 }
 func (pself *uiMgr) GetVisible(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetVisible.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxUiGetVisible.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *uiMgr) SetInteractable(obj Object, interactable bool) {
 	arg0 := ToGdObj(obj)
@@ -753,8 +753,8 @@ func (pself *uiMgr) SetInteractable(obj Object, interactable bool) {
 }
 func (pself *uiMgr) GetInteractable(obj Object) bool {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetInteractable.Invoke(arg0)
-	return ToBool(retValue)
+	_retValue := API.SpxUiGetInteractable.Invoke(arg0)
+	return ToBool(_retValue)
 }
 func (pself *uiMgr) SetRect(obj Object, rect Rect2) {
 	arg0 := ToGdObj(obj)
@@ -763,6 +763,6 @@ func (pself *uiMgr) SetRect(obj Object, rect Rect2) {
 }
 func (pself *uiMgr) GetRect(obj Object) Rect2 {
 	arg0 := ToGdObj(obj)
-	retValue := API.SpxUiGetRect.Invoke(arg0)
-	return ToRect2(retValue)
+	_retValue := API.SpxUiGetRect.Invoke(arg0)
+	return ToRect2(_retValue)
 }
