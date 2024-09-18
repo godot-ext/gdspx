@@ -11,6 +11,7 @@ var (
 
 func Link() bool {
 	js.Global().Set("goWasmInit", js.FuncOf(goWasmInit))
+	API.loadProcAddresses()
 	return true
 }
 
@@ -25,5 +26,9 @@ func BindCallback(info engine.CallbackInfo) {
 }
 
 func dlsymGD(funcName string) js.Value {
-	return js.Global().Get(funcName)
+	val := js.Global().Get(funcName)
+	if val.IsUndefined() || val.IsNull() {
+		panic("Js Function not found: " + funcName)
+	}
+	return val
 }
