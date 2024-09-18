@@ -1,9 +1,41 @@
 package webffi
 
 import (
+	"encoding/json"
+	"fmt"
 	. "godot-ext/gdspx/pkg/engine"
 	"syscall/js"
 )
+
+func jsValue2Go(value js.Value) interface{} {
+	switch value.Type() {
+	case js.TypeObject:
+		obj := make(map[string]interface{})
+		keys := js.Global().Get("Object").Call("keys", value)
+		for i := 0; i < keys.Length(); i++ {
+			key := keys.Index(i).String()
+			obj[key] = jsValue2Go(value.Get(key)) // 递归处理嵌套对象
+		}
+		return obj
+	case js.TypeString:
+		return value.String()
+	case js.TypeNumber:
+		return value.Float()
+	case js.TypeBoolean:
+		return value.Bool()
+	default:
+		return nil
+	}
+}
+func PrintJs(rect js.Value) {
+	rectMap := jsValue2Go(rect)
+	jsonData, err := json.Marshal(rectMap)
+	if err != nil {
+		fmt.Println("Error converting to JSON:", err)
+		return
+	}
+	fmt.Println(string(jsonData))
+}
 
 func JsFromGdObj(val Object) js.Value {
 	return JsFromGdInt(int64(val))
