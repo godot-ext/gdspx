@@ -242,7 +242,7 @@ func getManagerFuncBody(function *clang.TypedefFunction) string {
 		typeName := arg.Type.Primative.Name
 		argName := "arg" + strconv.Itoa(i)
 		sb.WriteString(argName + " := ")
-		sb.WriteString("To" + typeName)
+		sb.WriteString("JsFrom" + typeName)
 		sb.WriteString("(")
 		sb.WriteString(arg.Name)
 		sb.WriteString(")")
@@ -271,8 +271,12 @@ func getManagerFuncBody(function *clang.TypedefFunction) string {
 	if function.ReturnType.Name != "void" {
 		sb.WriteString("\n" + prefixTab)
 		sb.WriteString("return ")
-		typeName := GetFuncParamTypeString(function.ReturnType.Name)
-		sb.WriteString("To" + strcase.ToCamel(typeName) + "(_retValue)")
+		typeName := function.ReturnType.Name
+		name := strcase.ToCamel(typeName)
+		if name == "GdObj" {
+			name = "GdObject"
+		}
+		sb.WriteString("JsTo" + name + "(_retValue)")
 	}
 	return sb.String()
 }
@@ -354,8 +358,10 @@ func getJsFuncBody(function *clang.TypedefFunction) string {
 
 	if function.ReturnType.Name != "void" {
 		sb.WriteString(prefixTab + "_finalRetValue = ")
-		typeName := GetFuncParamTypeString(function.ReturnType.Name)
-		sb.WriteString("ToJs" + strcase.ToCamel(typeName) + "(_retValue);\n")
+		typeName := function.ReturnType.Name
+		funcName := strcase.ToCamel(typeName)
+		funcName = "ToJs" + strings.ReplaceAll(funcName, "Gd", "")
+		sb.WriteString(funcName + "(_retValue);\n")
 		sb.WriteString(prefixTab + "Free" + typeName + "(_retValue); \n")
 		sb.WriteString(prefixTab + "return _finalRetValue")
 	}

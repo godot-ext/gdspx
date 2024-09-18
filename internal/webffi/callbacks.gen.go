@@ -15,201 +15,331 @@ import (
 )
 
 func gdspxOnEngineStart(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnEngineStart")
+	if callbacks.OnEngineStart == nil {
+		return nil
+	}
 	callbacks.OnEngineStart()
 	return nil
 }
 func gdspxOnEngineUpdate(this js.Value, args []js.Value) interface{} {
-	callbacks.OnEngineUpdate(0.016)
+	if callbacks.OnEngineUpdate == nil {
+		return nil
+	}
+	arg0 := JsToGdFloat(args[0])
+	callbacks.OnEngineUpdate(arg0)
 	return nil
 }
 func gdspxOnEngineFixedUpdate(this js.Value, args []js.Value) interface{} {
-	callbacks.OnEngineFixedUpdate(0.016)
+	if callbacks.OnEngineFixedUpdate == nil {
+		return nil
+	}
+	arg0 := JsToGdFloat(args[0])
+	callbacks.OnEngineFixedUpdate(arg0)
 	return nil
 }
 func gdspxOnEngineDestroy(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnEngineDestroy")
+	if callbacks.OnEngineDestroy == nil {
+		return nil
+	}
 	callbacks.OnEngineDestroy()
 	return nil
 }
 func gdspxOnSceneSpriteInstantiated(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSceneSpriteInstantiated")
-	//callbacks.OnSceneSpriteInstantiated()
+	if callbacks.OnSceneSpriteInstantiated == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	arg1 := JsToGdString(args[1])
+	callbacks.OnSceneSpriteInstantiated(arg0, arg1)
 	return nil
 }
 func gdspxOnSpriteReady(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteReady")
-	//callbacks.OnSpriteReady()
+	if callbacks.OnSpriteReady == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteReady(arg0)
 	return nil
 }
 func gdspxOnSpriteUpdated(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteUpdated")
-	//callbacks.OnSpriteUpdated()
+	if callbacks.OnSpriteUpdated == nil {
+		return nil
+	}
+	arg0 := JsToGdFloat(args[0])
+	callbacks.OnSpriteUpdated(arg0)
 	return nil
 }
 func gdspxOnSpriteFixedUpdated(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteFixedUpdated")
-	//callbacks.OnSpriteFixedUpdated()
+	if callbacks.OnSpriteFixedUpdated == nil {
+		return nil
+	}
+	arg0 := JsToGdFloat(args[0])
+	callbacks.OnSpriteFixedUpdated(arg0)
 	return nil
 }
 func gdspxOnSpriteDestroyed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteDestroyed")
-	//callbacks.OnSpriteDestroyed()
+	if callbacks.OnSpriteDestroyed == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteDestroyed(arg0)
 	return nil
 }
 func gdspxOnSpriteFramesSetChanged(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteFramesSetChanged")
-	//callbacks.OnSpriteFramesSetChanged()
+	if callbacks.OnSpriteFramesSetChanged == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteFramesSetChanged(arg0)
 	return nil
 }
 func gdspxOnSpriteAnimationChanged(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteAnimationChanged")
-	//callbacks.OnSpriteAnimationChanged()
+	if callbacks.OnSpriteAnimationChanged == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteAnimationChanged(arg0)
 	return nil
 }
 func gdspxOnSpriteFrameChanged(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteFrameChanged")
-	//callbacks.OnSpriteFrameChanged()
+	if callbacks.OnSpriteFrameChanged == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteFrameChanged(arg0)
 	return nil
 }
 func gdspxOnSpriteAnimationLooped(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteAnimationLooped")
-	//callbacks.OnSpriteAnimationLooped()
+	if callbacks.OnSpriteAnimationLooped == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteAnimationLooped(arg0)
 	return nil
 }
 func gdspxOnSpriteAnimationFinished(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteAnimationFinished")
-	//callbacks.OnSpriteAnimationFinished()
+	if callbacks.OnSpriteAnimationFinished == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteAnimationFinished(arg0)
 	return nil
 }
 func gdspxOnSpriteVfxFinished(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteVfxFinished")
-	//callbacks.OnSpriteVfxFinished()
+	if callbacks.OnSpriteVfxFinished == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteVfxFinished(arg0)
 	return nil
 }
 func gdspxOnSpriteScreenExited(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteScreenExited")
-	//callbacks.OnSpriteScreenExited()
+	if callbacks.OnSpriteScreenExited == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteScreenExited(arg0)
 	return nil
 }
 func gdspxOnSpriteScreenEntered(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnSpriteScreenEntered")
-	//callbacks.OnSpriteScreenEntered()
+	if callbacks.OnSpriteScreenEntered == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnSpriteScreenEntered(arg0)
 	return nil
 }
 func gdspxOnMousePressed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnMousePressed")
-	//callbacks.OnMousePressed()
+	if callbacks.OnMousePressed == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	callbacks.OnMousePressed(arg0)
 	return nil
 }
 func gdspxOnMouseReleased(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnMouseReleased")
-	//callbacks.OnMouseReleased()
+	if callbacks.OnMouseReleased == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	callbacks.OnMouseReleased(arg0)
 	return nil
 }
 func gdspxOnKeyPressed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnKeyPressed")
-	//callbacks.OnKeyPressed()
+	if callbacks.OnKeyPressed == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	callbacks.OnKeyPressed(arg0)
 	return nil
 }
 func gdspxOnKeyReleased(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnKeyReleased")
-	//callbacks.OnKeyReleased()
+	if callbacks.OnKeyReleased == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	callbacks.OnKeyReleased(arg0)
 	return nil
 }
 func gdspxOnActionPressed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnActionPressed")
-	//callbacks.OnActionPressed()
+	if callbacks.OnActionPressed == nil {
+		return nil
+	}
+	arg0 := JsToGdString(args[0])
+	callbacks.OnActionPressed(arg0)
 	return nil
 }
 func gdspxOnActionJustPressed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnActionJustPressed")
-	//callbacks.OnActionJustPressed()
+	if callbacks.OnActionJustPressed == nil {
+		return nil
+	}
+	arg0 := JsToGdString(args[0])
+	callbacks.OnActionJustPressed(arg0)
 	return nil
 }
 func gdspxOnActionJustReleased(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnActionJustReleased")
-	//callbacks.OnActionJustReleased()
+	if callbacks.OnActionJustReleased == nil {
+		return nil
+	}
+	arg0 := JsToGdString(args[0])
+	callbacks.OnActionJustReleased(arg0)
 	return nil
 }
 func gdspxOnAxisChanged(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnAxisChanged")
-	//callbacks.OnAxisChanged()
+	if callbacks.OnAxisChanged == nil {
+		return nil
+	}
+	arg0 := JsToGdString(args[0])
+	arg1 := JsToGdFloat(args[1])
+	callbacks.OnAxisChanged(arg0, arg1)
 	return nil
 }
 func gdspxOnCollisionEnter(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnCollisionEnter")
-	//callbacks.OnCollisionEnter()
+	if callbacks.OnCollisionEnter == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	arg1 := JsToGdInt(args[1])
+	callbacks.OnCollisionEnter(arg0, arg1)
 	return nil
 }
 func gdspxOnCollisionStay(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnCollisionStay")
-	//callbacks.OnCollisionStay()
+	if callbacks.OnCollisionStay == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	arg1 := JsToGdInt(args[1])
+	callbacks.OnCollisionStay(arg0, arg1)
 	return nil
 }
 func gdspxOnCollisionExit(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnCollisionExit")
-	//callbacks.OnCollisionExit()
+	if callbacks.OnCollisionExit == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	arg1 := JsToGdInt(args[1])
+	callbacks.OnCollisionExit(arg0, arg1)
 	return nil
 }
 func gdspxOnTriggerEnter(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnTriggerEnter")
-	//callbacks.OnTriggerEnter()
+	if callbacks.OnTriggerEnter == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	arg1 := JsToGdInt(args[1])
+	callbacks.OnTriggerEnter(arg0, arg1)
 	return nil
 }
 func gdspxOnTriggerStay(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnTriggerStay")
-	//callbacks.OnTriggerStay()
+	if callbacks.OnTriggerStay == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	arg1 := JsToGdInt(args[1])
+	callbacks.OnTriggerStay(arg0, arg1)
 	return nil
 }
 func gdspxOnTriggerExit(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnTriggerExit")
-	//callbacks.OnTriggerExit()
+	if callbacks.OnTriggerExit == nil {
+		return nil
+	}
+	arg0 := JsToGdInt(args[0])
+	arg1 := JsToGdInt(args[1])
+	callbacks.OnTriggerExit(arg0, arg1)
 	return nil
 }
 func gdspxOnUiReady(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiReady")
-	//callbacks.OnUiReady()
+	if callbacks.OnUiReady == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiReady(arg0)
 	return nil
 }
 func gdspxOnUiUpdated(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiUpdated")
-	//callbacks.OnUiUpdated()
+	if callbacks.OnUiUpdated == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiUpdated(arg0)
 	return nil
 }
 func gdspxOnUiDestroyed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiDestroyed")
-	//callbacks.OnUiDestroyed()
+	if callbacks.OnUiDestroyed == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiDestroyed(arg0)
 	return nil
 }
 func gdspxOnUiPressed(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiPressed")
-	//callbacks.OnUiPressed()
+	if callbacks.OnUiPressed == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiPressed(arg0)
 	return nil
 }
 func gdspxOnUiReleased(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiReleased")
-	//callbacks.OnUiReleased()
+	if callbacks.OnUiReleased == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiReleased(arg0)
 	return nil
 }
 func gdspxOnUiHovered(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiHovered")
-	//callbacks.OnUiHovered()
+	if callbacks.OnUiHovered == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiHovered(arg0)
 	return nil
 }
 func gdspxOnUiClicked(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiClicked")
-	//callbacks.OnUiClicked()
+	if callbacks.OnUiClicked == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	callbacks.OnUiClicked(arg0)
 	return nil
 }
 func gdspxOnUiToggle(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiToggle")
-	//callbacks.OnUiToggle()
+	if callbacks.OnUiToggle == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	arg1 := JsToGdBool(args[1])
+	callbacks.OnUiToggle(arg0, arg1)
 	return nil
 }
 func gdspxOnUiTextChanged(this js.Value, args []js.Value) interface{} {
-	println("GDExtensionSpxCallbackOnUiTextChanged")
-	//callbacks.OnUiTextChanged()
+	if callbacks.OnUiTextChanged == nil {
+		return nil
+	}
+	arg0 := JsToGdObj(args[0])
+	arg1 := JsToGdString(args[1])
+	callbacks.OnUiTextChanged(arg0, arg1)
 	return nil
 }
 func resiterFuncPtr2Js() {

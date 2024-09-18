@@ -14,14 +14,24 @@ import (
 )
 
 {{ range $i, $f := $view.CollectGDExtensionICallbackFunctions -}}
-func on{{ trimPrefix $f.Name "GDExtension" }}(this js.Value, args []js.Value) interface{} {
-	println("{{$f.Name}}")
+func gdspx{{ trimPrefix $f.Name "GDExtensionSpxCallback" }}(this js.Value, args []js.Value) interface{} {
+	if (callbacks.{{ trimPrefix $f.Name "GDExtensionSpxCallback" }} == nil){
+		return nil
+	}
+	{{ range $j, $arg := $f.Arguments -}}
+		arg{{ $j }} := JsTo{{$arg.Type.Primative.Name}}(args[{{$j}}])
+	{{ end -}}
+	callbacks.{{ trimPrefix $f.Name "GDExtensionSpxCallback" }}(
+		{{- range $j, $arg := $f.Arguments -}}
+			arg{{ $j }},
+		{{- end -}}
+	)
 	return nil
 }
 {{ end -}}
 
 func resiterFuncPtr2Js() {
 {{ range $i, $f := $view.CollectGDExtensionICallbackFunctions -}}
-	js.Global().Set("on_{{snakeCase (trimPrefix $f.Name "GDExtension" )}}", js.FuncOf(on{{  trimPrefix $f.Name "GDExtension" }}))
+	js.Global().Set("gdspx_{{snakeCase (trimPrefix $f.Name "GDExtensionSpxCallback" )}}", js.FuncOf(gdspx{{ trimPrefix $f.Name "GDExtensionSpxCallback" }}))
 {{ end -}}
 }
